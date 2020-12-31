@@ -33,16 +33,12 @@ public class EdgeController {
     @GetMapping("/reviews/all")
     public List<Review> getAllReviews(){
 
-        List<Review> returnList= new ArrayList();
-
         ResponseEntity<List<Review>> responseEntityReviews =
                 restTemplate.exchange("http://" + reviewmsBaseUrl + "/reviews/all",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Review>>() {
                         });
 
-        List<Review> reviews = responseEntityReviews.getBody();
-
-        return returnList;
+        return responseEntityReviews.getBody();
     }
 
 
