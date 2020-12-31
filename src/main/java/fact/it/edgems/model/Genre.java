@@ -1,42 +1,32 @@
 package fact.it.edgems.model;
 
 public class Genre {
-    private Integer id;
-    private Integer uuid;
-    private Integer movieId;
+    private int id;
+    private String uuid;
     private String name;
 
     public Genre() {
     }
 
-    public Genre(Integer uuid, Integer movieId, String name) {
+    public Genre(String uuid, String name) {
         this.uuid = uuid;
-        this.movieId = movieId;
         this.name = name;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(Integer uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public Integer getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(Integer movieId) {
-        this.movieId = movieId;
     }
 
     public String getName() {
