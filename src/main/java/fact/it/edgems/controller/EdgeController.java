@@ -82,5 +82,13 @@ public class EdgeController {
         return responseEntityReview.getBody();
     }
 
+    @DeleteMapping("/reviews/{uuid}")
+    public ResponseEntity deleteReview(@PathVariable String uuid){
+
+        restTemplate.delete("http://" + reviewmsBaseUrl + "/reviews/" + uuid);
+
+        return ResponseEntity.ok().build();
+    }
+
 
 }
