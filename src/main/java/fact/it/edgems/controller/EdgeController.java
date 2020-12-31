@@ -7,10 +7,13 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,6 +47,15 @@ public class EdgeController {
 //    getMovieWithReviews
 //    gebruikt: getReviewsByMovieUuid
 //    URL: /reviews/movie/{movieUuid}
+
+
+    @PostMapping("/reviews")
+    public Review addReview(@RequestParam String movieUuid, @RequestParam String text, @RequestParam double rating){
+
+        Date date = new Date();
+        return restTemplate.postForObject("http://" + reviewmsBaseUrl + "/reviews",
+                new Review(movieUuid,text,rating, date),Review.class);
+    }
 
 
 }
