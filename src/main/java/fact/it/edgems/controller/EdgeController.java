@@ -4,12 +4,10 @@ import fact.it.edgems.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class EdgeController {
     private String genremsBaseUrl;
 
     @GetMapping("/reviews/all")
-    public List<Review> getAllReviews(){
+    public List<Review> getAllReviews() {
 
         ResponseEntity<List<Review>> responseEntityReviews =
                 restTemplate.exchange("http://" + reviewmsBaseUrl + "/reviews/all",
@@ -51,15 +49,15 @@ public class EdgeController {
 
 
     @PostMapping("/reviews")
-    public Review addReview(@RequestParam String movieUuid, @RequestParam String text, @RequestParam double rating){
+    public Review addReview(@RequestParam String movieUuid, @RequestParam String text, @RequestParam double rating) {
         String randomUuid = getRandomUuid();
         Date date = new Date();
 
         return restTemplate.postForObject("http://" + reviewmsBaseUrl + "/reviews",
-                new Review(randomUuid, movieUuid,text,rating, date),Review.class);
+                new Review(randomUuid, movieUuid, text, rating, date), Review.class);
     }
 
-    public String getRandomUuid(){
+    public String getRandomUuid() {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
@@ -71,6 +69,17 @@ public class EdgeController {
             buffer.append((char) randomLimitedInt);
         }
         return buffer.toString();
+    }
+
+    @PutMapping("/reviews")
+    public Review updateReview(@RequestParam String uuid, @RequestParam String movieUuid, @RequestParam String text, @RequestParam double rating, @RequestParam Date date) {
+        Review review = new Review(uuid, movieUuid, text, rating, date);
+
+        ResponseEntity<Review> responseEntityReview =
+                restTemplate.exchange("http://" + reviewmsBaseUrl + "/reviews",
+                        HttpMethod.PUT, new HttpEntity<>(review), Review.class);
+
+        return responseEntityReview.getBody();
     }
 
 
