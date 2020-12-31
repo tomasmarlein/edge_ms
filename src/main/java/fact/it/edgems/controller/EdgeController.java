@@ -41,5 +41,9 @@ public class EdgeController {
         return responseEntityReviews.getBody();
     }
 
+//    getMovieWithReviews
+//    gebruikt: getReviewsByMovieUuid
+//    URL: /reviews/movie/{movieUuid}
+
 
 }
