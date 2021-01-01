@@ -42,11 +42,11 @@ public class Watchlist {
         this.movieUuid = movieUuid;
     }
 
-    public boolean isWatched() {
+    public boolean getIsWatched() {
         return isWatched;
     }
 
-    public void setWatched(boolean watched) {
+    public void setIsWatched(boolean watched) {
         isWatched = watched;
     }
 }
