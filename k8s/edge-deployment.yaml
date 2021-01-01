@@ -26,13 +26,13 @@ spec:
               cpu: 0.2
               memory: "200Mi"
           env:                    # Environment variables supplied to the Pod
-            - name: MOVIEMS_BASEURL
+            - name: MOVIEMS_HOST
               value: "10.100.3.1:8053"
-            - name: REVIEWMS_BASEURL
-              value: "10.100.1.1:8052"
-            - name: WATCHLISTMS_BASEURL
-              value: "10.100.2.1:8053"
-            - name: GENREMS_BASEURL
+            - name: REVIEWMS_HOST
+              value: "review-service"
+            - name: WATCHLISTMS_HOST
+              value: "watchlist-service"
+            - name: GENREMS_HOST
               value: "10.100.4.1:8054"
 
 ---
@@ -49,5 +49,4 @@ spec:
   ports:                            # Forward incoming connections on port 8080 to the target port 8051
     - name: http
       port: 8050
-      targetPort: 8050
-  clusterIP: 10.100.0.1
+      nodePort: 32000
