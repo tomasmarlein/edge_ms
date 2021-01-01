@@ -108,7 +108,7 @@ public class EdgeController {
         return responseEntityWatchlist.getBody();
     }
 
-    @PostMapping("watchlist/{movieUuid}")
+    @PostMapping("/watchlist/{movieUuid}")
     public Watchlist add(@PathVariable UUID movieUuid){
         ResponseEntity<Watchlist> responseEntityWatchlist =
                 restTemplate.exchange("http://" + watchlistmsBaseUrl + "/watchlist/"+movieUuid,
@@ -118,7 +118,7 @@ public class EdgeController {
         return responseEntityWatchlist.getBody();
     }
 
-    @PutMapping("watchlist/watched/{uuid}")
+    @PutMapping("/watchlist/watched/{uuid}")
     public Watchlist setWatched(@PathVariable UUID uuid){
         ResponseEntity<Watchlist> responseEntityWatchlist =
                 restTemplate.exchange("http://" + watchlistmsBaseUrl + "/watchlist/"+uuid,
@@ -128,7 +128,7 @@ public class EdgeController {
         return responseEntityWatchlist.getBody();
     }
 
-    @DeleteMapping("watchlist/{movieUuid}")
+    @DeleteMapping("/watchlist/{movieUuid}")
     public ResponseEntity delete(@PathVariable UUID movieUuid){
         restTemplate.delete("http://" + watchlistmsBaseUrl + "/watchlist/" + movieUuid);
 
