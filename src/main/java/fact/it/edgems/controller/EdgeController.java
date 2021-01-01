@@ -50,7 +50,6 @@ public class EdgeController {
     public Review addReview(@RequestParam String movieUuid, @RequestParam String text, @RequestParam double rating) {
         String randomUuid = getRandomUuid();
         Date date = new Date();
-
         return restTemplate.postForObject("http://" + reviewmsBaseUrl + "/reviews",
                 new Review(randomUuid, movieUuid, text, rating, date), Review.class);
     }
@@ -60,8 +59,8 @@ public class EdgeController {
     }
 
     @PutMapping("/reviews")
-    public Review updateReview(@RequestParam String uuid, @RequestParam String movieUuid, @RequestParam String text, @RequestParam double rating, @RequestParam Date date) {
-        Review review = new Review(uuid, movieUuid, text, rating, date);
+    public Review updateReview(@RequestParam String uuid, @RequestParam String movieUuid, @RequestParam String text, @RequestParam double rating) {
+        Review review = new Review(uuid, movieUuid, text, rating, new Date());
 
         ResponseEntity<Review> responseEntityReview =
                 restTemplate.exchange("http://" + reviewmsBaseUrl + "/reviews",

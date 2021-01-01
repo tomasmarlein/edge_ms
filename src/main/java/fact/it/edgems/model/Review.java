@@ -1,8 +1,11 @@
 package fact.it.edgems.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class Review {
+    @JsonIgnore
     private String id;
     private String uuid;
     private String movieUuid;
