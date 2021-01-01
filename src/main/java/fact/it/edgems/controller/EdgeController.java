@@ -121,7 +121,7 @@ public class EdgeController {
     @PutMapping("/watchlist/watched/{uuid}")
     public Watchlist setWatched(@PathVariable UUID uuid){
         ResponseEntity<Watchlist> responseEntityWatchlist =
-                restTemplate.exchange("http://" + watchlistmsBaseUrl + "/watchlist/watched"+uuid,
+                restTemplate.exchange("http://" + watchlistmsBaseUrl + "/watchlist/watched/"+uuid,
                         HttpMethod.PUT, null, new ParameterizedTypeReference<Watchlist>() {
                         });
 
