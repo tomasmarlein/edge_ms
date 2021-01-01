@@ -49,4 +49,4 @@ spec:
   ports:                            # Forward incoming connections on port 8080 to the target port 8051
     - name: http
       port: 8050
-      targetPort: 8050
+      nodePort: 32000

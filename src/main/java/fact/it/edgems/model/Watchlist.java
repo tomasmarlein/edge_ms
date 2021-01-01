@@ -1,6 +1,9 @@
 package fact.it.edgems.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Watchlist {
+    @JsonIgnore
     private int id;
     private String uuid;
     private String movieUuid;
