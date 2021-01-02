@@ -10,7 +10,7 @@ _Watchlist microservice_  ![Watchlist microservice](https://github.com/TomBsmns/
 _Review microservice_  ![Review microservice](https://github.com/vanhouttejan4/review_ms/workflows/Test,%20Build,%20Upload/badge.svg)
 
 
-_Movie microservice_  ![Movie microservice](https://github.com/matthiasclaessen/movie_ms/workflows/Test,%20Build%20and%20Upload%20artifact/badge.svg)
+_Movie microservice_  ![Test, Build and Upload artifact](https://github.com/TomBsmns/movie-ms/workflows/Test,%20Build%20and%20Upload%20artifact/badge.svg)
 
 
 _Genres microservice_  ![Genres microservice](https://github.com/tomasmarlein/genres_ms/workflows/Test,%20Build%20and%20Upload%20artifact/badge.svg)
