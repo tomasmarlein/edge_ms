@@ -1,5 +1,6 @@
 package fact.it.edgems.controller;
 
+import fact.it.edgems.model.Movie;
 import fact.it.edgems.model.Review;
 import fact.it.edgems.model.Watchlist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,4 +135,24 @@ public class EdgeController {
         return ResponseEntity.ok().build();
     }
 
+    /* Movie endpoints */
+    @GetMapping("/movie/all")
+    public List<Movie> getAllMovies(){
+        ResponseEntity<List<Movie>> responseEntityWatchlist =
+                restTemplate.exchange("http://" + moviemsBaseUrl + "/movie/all",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Movie>>() {
+                        });
+
+        return responseEntityWatchlist.getBody();
+    }
+
+    @GetMapping("/watchlist/{uuid}")
+    public Movie getOneMovie(@PathVariable UUID uuid){
+        ResponseEntity<Movie> responseEntityWatchlist =
+                restTemplate.exchange("http://" + moviemsBaseUrl + "/movie/" +uuid.toString(),
+                        HttpMethod.GET, null, new ParameterizedTypeReference<Movie>() {
+                        });
+
+        return responseEntityWatchlist.getBody();
+    }
 }
