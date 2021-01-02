@@ -138,21 +138,20 @@ public class EdgeController {
     /* Movie endpoints */
     @GetMapping("/movie/all")
     public List<Movie> getAllMovies(){
-        ResponseEntity<List<Movie>> responseEntityWatchlist =
+        ResponseEntity<List<Movie>> responseEntityMovie =
                 restTemplate.exchange("http://" + moviemsBaseUrl + "/movie/all",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Movie>>() {
                         });
 
-        return responseEntityWatchlist.getBody();
+        return responseEntityMovie.getBody();
     }
 
-    @GetMapping("/watchlist/{uuid}")
+    @GetMapping("/movie/{uuid}")
     public Movie getOneMovie(@PathVariable UUID uuid){
-        ResponseEntity<Movie> responseEntityWatchlist =
+        ResponseEntity<Movie> responseEntityMovie =
                 restTemplate.exchange("http://" + moviemsBaseUrl + "/movie/" +uuid.toString(),
                         HttpMethod.GET, null, new ParameterizedTypeReference<Movie>() {
                         });
-
-        return responseEntityWatchlist.getBody();
+        return responseEntityMovie.getBody();
     }
 }

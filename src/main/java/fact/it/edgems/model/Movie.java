@@ -2,7 +2,6 @@ package fact.it.edgems.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.UUID;
 
 public class Movie {
     @JsonIgnore
