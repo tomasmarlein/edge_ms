@@ -1,5 +1,6 @@
 package fact.it.edgems.controller;
 
+import fact.it.edgems.model.Genre;
 import fact.it.edgems.model.Movie;
 import fact.it.edgems.model.Review;
 import fact.it.edgems.model.Watchlist;
@@ -154,4 +155,26 @@ public class EdgeController {
                         });
         return responseEntityMovie.getBody();
     }
+
+
+    /* Genre endpoints */
+    @GetMapping("/genres/all")
+    public List<Genre> getAllGenres(){
+        ResponseEntity<List<Genre>> responseEntityGenre =
+                restTemplate.exchange("http://" + genremsBaseUrl + "/genres/all",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Genre>>() {
+                        });
+
+        return responseEntityGenre.getBody();
+    }
+
+    @GetMapping("/genres/{uuid}")
+    public List<Genre> getGenresByUuid(@PathVariable String uuid){
+        ResponseEntity<List<Genre>> responseEntityGenre =
+                restTemplate.exchange("http://" + genremsBaseUrl + "/genres/" + uuid,
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Genre>>() {
+                        });
+        return responseEntityGenre.getBody();
+    }
+
 }
