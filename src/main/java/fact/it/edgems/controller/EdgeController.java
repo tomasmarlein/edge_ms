@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class EdgeController {
     @Autowired
