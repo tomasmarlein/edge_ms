@@ -12,6 +12,14 @@ public class Movie {
 
     public Movie(){}
 
+    public Movie(String title, String originalTitle, int year, int runtimeMinutes, double rating) {
+        this.title = title;
+        this.originalTitle = originalTitle;
+        this.year = year;
+        this.runtimeMinutes = runtimeMinutes;
+        this.rating = rating;
+    }
+
     public int getId() {
         return id;
     }
