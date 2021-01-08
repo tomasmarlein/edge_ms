@@ -63,6 +63,36 @@ public class EdgeController {
         return new FilledMovieReview(movie, reviews);
     }
 
+    @GetMapping("/watchlist/allwithmovie")
+    public List<WatchlistMovie> getAllWatchlistWithMovie(){
+        List<WatchlistMovie> returnList= new ArrayList();
+
+        ResponseEntity<List<Watchlist>> responseEntityWatchlist =
+                restTemplate.exchange("http://" + watchlistmsBaseUrl + "/watchlist/all",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Watchlist>>() {
+                        });
+
+        List<Watchlist> watchlists = responseEntityWatchlist.getBody();
+
+        for (Watchlist watchlist: watchlists) {
+            Movie movie = restTemplate.getForObject("http://" + moviemsBaseUrl + "/movie/{uuid}",
+                    Movie.class, watchlist.getMovieUuid());
+
+            returnList.add(new WatchlistMovie(movie,watchlist));
+        }
+
+        return returnList;
+    }
+
+//    @GetMapping("/watchlist/{uuid}")
+//    public Watchlist getOneWatchlistWithMovie(@PathVariable UUID uuid){
+//        ResponseEntity<Watchlist> responseEntityWatchlist =
+//                restTemplate.exchange("http://" + watchlistmsBaseUrl + "/watchlist/" +uuid.toString(),
+//                        HttpMethod.GET, null, new ParameterizedTypeReference<Watchlist>() {
+//                        });
+//
+//        return responseEntityWatchlist.getBody();
+//    }
 
 
 
