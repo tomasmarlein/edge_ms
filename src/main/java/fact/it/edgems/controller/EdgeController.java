@@ -1,9 +1,6 @@
 package fact.it.edgems.controller;
 
-import fact.it.edgems.model.Genre;
-import fact.it.edgems.model.Movie;
-import fact.it.edgems.model.Review;
-import fact.it.edgems.model.Watchlist;
+import fact.it.edgems.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -48,6 +45,25 @@ public class EdgeController {
 //    getMovieWithReviews
 //    gebruikt: getReviewsByMovieUuid
 //    URL: /reviews/movie/{movieUuid}
+
+    @GetMapping("/reviews/movie/{movieUuid}")
+    public FilledMovieReview getMovieWithReviews(@PathVariable String movieUuid){
+
+        Movie movie = restTemplate.getForObject("http://" + moviemsBaseUrl + "/movie/{uuid}",
+                        Movie.class, movieUuid);
+
+        ResponseEntity<List<Review>> movieReviews =
+                restTemplate.exchange("http://" + reviewmsBaseUrl + "/reviews/movie/{movieUuid}",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Review>>() {
+                        }, movieUuid);
+
+        List<Review> reviews = movieReviews.getBody();
+
+
+        return new FilledMovieReview(movie, reviews);
+    }
+
+
 
 
     @PostMapping("/reviews")
