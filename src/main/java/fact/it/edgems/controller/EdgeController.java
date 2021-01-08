@@ -33,6 +33,7 @@ public class EdgeController {
     @Value("${genrems.baseurl}")
     private String genremsBaseUrl;
 
+
     @GetMapping("/reviews/all")
     public List<Review> getAllReviews() {
 
