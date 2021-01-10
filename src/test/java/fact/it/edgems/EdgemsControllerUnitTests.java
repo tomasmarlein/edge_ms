@@ -62,20 +62,62 @@ public class EdgemsControllerUnitTests {
     private Movie movie2 = new Movie("Testmovie 2", "Testfilm 2", 2020, 62, 8.2 );
     private Movie movie3 = new Movie("Testmovie 3", "Testfilm 3", 2020, 63, 8.3 );
 
-    private Review review1Movie1 = new Review("1", "1", "review 1 movie 1", 7.25, new Date());
-    private Review review2Movie1 = new Review("2", "1", "review 2 movie 1", 2, new Date());
+    private Review review1Movie1 = new Review("1", movie1.getUuid(), "review 1 movie 1", 7.25, new Date());
+    private Review review2Movie1 = new Review("2", movie1.getUuid(), "review 2 movie 1", 2, new Date());
 
     private Watchlist watchlist = new Watchlist("21d14364-8e94-41a3-824a-a44df76d59d8", "fbedd1a2-e847-448d-b49e-e15c23dd9db1", false);
 
     private Genre genre = new Genre("964df97f-2cd4-4e1a-acf9-c21b2ad1e947", "genre 1");
 
     private List<Movie> allMovies = Arrays.asList(movie1, movie2);
+    private List<Review> allReviewsFromMovie1 = Arrays.asList(review1Movie1, review2Movie1);
+
 
     @BeforeEach
     public void initializeMockserver() {
         mockServer = MockRestServiceServer.createServer(restTemplate);
 
     }
+
+    @Test
+    public void whenGetMovieWithReviews_thenReturnFilledMovieReviewJson() throws Exception {
+
+        // GET all reviews from User 1
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + reviewmsBaseUrl + "/reviews/movie/" + movie1.getUuid())))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(allReviewsFromMovie1))
+                );
+
+        // GET Book 2 info
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + moviemsBaseUrl + "/movie/" + movie1.getUuid())))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(movie1))
+                );
+
+        mockMvc.perform(get("/reviews/movie/{movieUuid}", movie1.getUuid()))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+        ;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void whenGetAllMovies_thenReturnAllMovies() throws Exception {
