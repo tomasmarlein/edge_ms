@@ -119,26 +119,5 @@ public class EdgemsControllerUnitTests {
 
 
 
-    @Test
-    public void whenGetAllMovies_thenReturnAllMovies() throws Exception {
-        mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + moviemsBaseUrl + "/movie/all")))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(allMovies))
-                );
 
-    }
-
-    @Test
-    public void whenGetOneMovie_thenReturnMovie() throws Exception {
-        mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + moviemsBaseUrl + "/movie/uuid")))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(movie1))
-                );
-    }
 }
