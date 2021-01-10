@@ -65,12 +65,12 @@ public class EdgemsControllerUnitTests {
     private Review review1Movie1 = new Review("1", movie1.getUuid(), "review 1 movie 1", 7.25, new Date());
     private Review review2Movie1 = new Review("2", movie1.getUuid(), "review 2 movie 1", 2, new Date());
 
-    private Watchlist watchlist = new Watchlist("21d14364-8e94-41a3-824a-a44df76d59d8", "fbedd1a2-e847-448d-b49e-e15c23dd9db1", false);
+    private Watchlist watchlist = new Watchlist("21d14364-8e94-41a3-824a-a44df76d59d8", movie1.getUuid(), false);
 
     private Genre genre = new Genre("964df97f-2cd4-4e1a-acf9-c21b2ad1e947", "genre 1");
 
-    private List<Movie> allMovies = Arrays.asList(movie1, movie2);
     private List<Review> allReviewsFromMovie1 = Arrays.asList(review1Movie1, review2Movie1);
+    private List<Watchlist> allWatchlist = Arrays.asList(watchlist);
 
 
     @BeforeEach
@@ -92,6 +92,26 @@ public class EdgemsControllerUnitTests {
 
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + moviemsBaseUrl + "/movie/" + movie1.getUuid())))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(movie1))
+                );
+    }
+
+    @Test
+    public void whenGetAllWatchlistWithMovie_thenReturnWatchlistMovieJson() throws Exception {
+
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + watchlistmsBaseUrl + "/watchlist/all/")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(allReviewsFromMovie1))
+                );
+
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + moviemsBaseUrl + "/movie/" + watchlist.getMovieUuid())))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)

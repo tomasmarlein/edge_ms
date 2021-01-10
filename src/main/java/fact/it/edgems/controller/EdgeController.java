@@ -41,8 +41,7 @@ public class EdgeController {
 
         return responseEntityReviews.getBody();
     }
-
-//TODO
+    
     @GetMapping("/reviews/movie/{movieUuid}")
     public FilledMovieReview getMovieWithReviews(@PathVariable String movieUuid){
 
@@ -60,7 +59,6 @@ public class EdgeController {
         return new FilledMovieReview(movie, reviews);
     }
 
-    //TODO
     @GetMapping("/watchlist/allwithmovie")
     public List<WatchlistMovie> getAllWatchlistWithMovie(){
         List<WatchlistMovie> returnList= new ArrayList();
