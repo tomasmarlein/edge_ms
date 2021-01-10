@@ -82,7 +82,6 @@ public class EdgemsControllerUnitTests {
     @Test
     public void whenGetMovieWithReviews_thenReturnFilledMovieReviewJson() throws Exception {
 
-        // GET all reviews from User 1
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + reviewmsBaseUrl + "/reviews/movie/" + movie1.getUuid())))
                 .andExpect(method(HttpMethod.GET))
@@ -91,7 +90,6 @@ public class EdgemsControllerUnitTests {
                         .body(mapper.writeValueAsString(allReviewsFromMovie1))
                 );
 
-        // GET Book 2 info
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("http://" + moviemsBaseUrl + "/movie/" + movie1.getUuid())))
                 .andExpect(method(HttpMethod.GET))
@@ -99,11 +97,6 @@ public class EdgemsControllerUnitTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(mapper.writeValueAsString(movie1))
                 );
-
-        mockMvc.perform(get("/reviews/movie/{movieUuid}", movie1.getUuid()))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-        ;
     }
 
 
