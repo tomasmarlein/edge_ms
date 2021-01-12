@@ -1,6 +1,9 @@
 package fact.it.edgems.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Genre {
+    @JsonIgnore
     private int id;
     private String uuid;
     private String name;
