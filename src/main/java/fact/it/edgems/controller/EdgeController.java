@@ -213,10 +213,10 @@ public class EdgeController {
     }
 
     @GetMapping("/genres/{uuid}")
-    public List<Genre> getGenresByUuid(@PathVariable String uuid){
-        ResponseEntity<List<Genre>> responseEntityGenre =
+    public Genre getGenresByUuid(@PathVariable String uuid){
+        ResponseEntity<Genre> responseEntityGenre =
                 restTemplate.exchange("http://" + genremsBaseUrl + "/genres/" + uuid,
-                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Genre>>() {
+                        HttpMethod.GET, null, new ParameterizedTypeReference<Genre>() {
                         });
         return responseEntityGenre.getBody();
     }
